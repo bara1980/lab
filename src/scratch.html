@@ -1,45 +1,7 @@
 <html>
   <script type="text/javascript" src="plotta.js"></script>
+  <script type="text/javascript" src="prob01.js"></script>
   <script type="text/javascript">
-    function identity(x) {
-        return x;
-    }
-    function DrawGraph() {
-        const canvas = document.getElementById("c01");
-        const plotta = new Plotta(canvas, {
-            lineDatas: [
-                {
-                    id: 'line1',
-                    type: 'func',
-                    legend: 'first',
-                    color: '#FF8888',
-                    visible: true,
-                    func: identity,
-                    dotNum: 1000
-                },
-            ],
-            graphConfig: {
-                legendVisible: true,
-                title: {
-                    visible: true,
-                    location: 'center',
-                    color: '#666666',
-                    text: 'plotta.ts',
-                },
-                grid: {
-                    visible: true,
-                    type: 'solid',
-                    color: '#888888',
-                },
-                border: {
-                    visible: true,
-                    type: 'solid',
-                    color: '#DDDDDD',
-                    width: 1,
-                },
-            },
-        });
-    }
   </script>
   <head>
     <title>Control Engineering Lab</title>
@@ -57,7 +19,8 @@
                   style="width:600px; height:400px; border:1px solid #d3d3d3;"/>
         </p>
         <p>hi</p>
-        <button onclick="DrawGraph()">Click</button>
+        <button id="solve01" onclick="DrawGraph()">Click</button>
+        <button id="show02" hidden onclick="Switch02()">Next Problem</button>
       </div>
     </div>
     <div id="footer">
