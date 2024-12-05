@@ -1,0 +1,66 @@
+<html>
+  <script type="text/javascript" src="plotta.js"></script>
+  <script type="text/javascript">
+    function identity(x) {
+        return x;
+    }
+    function DrawGraph() {
+        const canvas = document.getElementById("c01");
+        const plotta = new Plotta(canvas, {
+            lineDatas: [
+                {
+                    id: 'line1',
+                    type: 'func',
+                    legend: 'first',
+                    color: '#FF8888',
+                    visible: true,
+                    func: identity,
+                    dotNum: 1000
+                },
+            ],
+            graphConfig: {
+                legendVisible: true,
+                title: {
+                    visible: true,
+                    location: 'center',
+                    color: '#666666',
+                    text: 'plotta.ts',
+                },
+                grid: {
+                    visible: true,
+                    type: 'solid',
+                    color: '#888888',
+                },
+                border: {
+                    visible: true,
+                    type: 'solid',
+                    color: '#DDDDDD',
+                    width: 1,
+                },
+            },
+        });
+    }
+  </script>
+  <head>
+    <title>Control Engineering Lab</title>
+  </head>
+  <body>
+    <div id="header">
+      <h2>Control Engineering Lab</h2>
+    </div>
+    <div id="content">
+      <div id="ex01">
+        <p>
+          <canvas id="c01"
+                  width="600px"
+                  height="400px"
+                  style="width:600px; height:400px; border:1px solid #d3d3d3;"/>
+        </p>
+        <p>hi</p>
+        <button onclick="DrawGraph()">Click</button>
+      </div>
+    </div>
+    <div id="footer">
+    </div>
+  </body>
+</html>
