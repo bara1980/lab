@@ -5,6 +5,7 @@
   <script type="text/javascript" src="prob02.js"></script>
   <script type="text/javascript" src="prob03.js"></script>
   <script type="text/javascript" src="prob04.js"></script>
+  <script type="text/javascript" src="prob05.js"></script>
   <head>
     <title>Control Engineering Lab</title>
   </head>
@@ -76,6 +77,28 @@
         <button id="show05" hidden onclick="Switch05()">Next Problem</button>
       </div>
       <div id="ex05" hidden>
+        <p>
+          <canvas id="c05"
+                  width="600px"
+                  height="400px"
+                  style="width:600px; height:400px; border:1px solid #d3d3d3;"/>
+        </p>
+        <p>Design a proportional-integral (PI)
+          controller to follow the input speed.
+        </p>
+        <p>Proportional constant:
+          <input id="05_p" type="number" value=0.1 />
+        </p>
+        <p>Integral constant:
+          <input id="05_i" type="number" value=0 />
+        </p>
+        <p>Differential constant:
+          <input id="05_d" type="number" value=0 />
+        </p>
+        <button id="solve05" onclick="Run05()">Simulate</button>
+        <button id="show06" hidden onclick="Switch06()">Next Problem</button>
+      </div>
+      <div id="ex06" hidden>
         <p><b>Congratulations!</b><hr/>You have completed all the problems.</p>
       </div>
     </div>
