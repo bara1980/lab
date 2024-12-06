@@ -22,9 +22,9 @@ function OnOffControl(
     high,
     error) {
     if (error >= 0) {
-        return low;
+        return high;
     }
-    return high;
+    return low;
 }
 function OnOffWithHysteresisControl(
     previousOutput,
@@ -33,11 +33,24 @@ function OnOffWithHysteresisControl(
     onValue,
     onOffset,
     error) {
-    if (error > offOffset) {
-        return offValue;
-    }
-    if (error < -onOffset) {
+    if (error > onOffset) {
         return onValue;
     }
+    if (error < -offOffset) {
+        return offValue;
+    }
     return previousOutput;
+}
+function PID(
+    error,
+    accError,
+    errorChange,
+    pt,
+    it,
+    dt,
+    timeDelta) {
+    p_o = (pt * error) * timeDelta;
+    i_o = (it * accError) * timeDelta;
+    d_o = (dt * errorChange) * timeDelta;
+    return p_o + i_o + d_o;
 }

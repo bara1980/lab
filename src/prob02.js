@@ -26,7 +26,7 @@ function Run02() {
             command[i-1],
             offValue, offOffset,
             onValue, onOffset,
-            output[i-1] - input[i])
+            input[i] - output[i])
         command.push(controlValue);
         output.push(
             CalculateSpeed(
@@ -137,7 +137,7 @@ function Run02() {
     dir = 1;
     for (let i = 0; i < time.length; i++) {
         if (time[i] >= evalStart) {
-            error = output[i] - input[i];
+            error = input[i] - output[i];
             if (Math.abs(error) > (input[i]*tolerance))
             {
                 passes = false;

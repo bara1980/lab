@@ -1,4 +1,4 @@
-function Run01() {
+function Run03() {
     ts = 0.0;
     te = 20.0;
     step = 0.01
@@ -10,17 +10,32 @@ function Run01() {
     output = [];
     command = [];
     // Read data from page
-    const offValue = Number(document.getElementById("01_off").value);
-    const onValue = Number(document.getElementById("01_on").value);
+    const p_term = Number(document.getElementById("03_p").value);
     // Calculate results
     for (let t = ts; t <= te; t += step) {
         time.push(t);
         input.push(StepFunc(0, 60, 1.0, t));
     }
-    command.push(offValue);
+    command.push(0);
     output.push(startingSpeed);
+    error = 0;
+    accError = 0;
     for (let i = 1; i < time.length; i++) {
-        command.push(OnOffControl(offValue, onValue, input[i-1] - output[i]));
+        timeDelta = time[i] - time[i-1];
+        previousOut = output[i-1];
+        previousError = error;
+        error = input[i-1] - output[i-1];
+        errorChange = error - previousError;
+        accError = error + accError;
+        controlValue = PID(
+            error,
+            accError,
+            errorChange,
+            p_term,
+            0,
+            0,
+            timeDelta);
+        command.push(controlValue);
         output.push(
             CalculateSpeed(
                 accelCoefficient,
@@ -41,7 +56,7 @@ function Run01() {
         control.push( {x: time[i], y: command[i]*100} );
         result.push( {x: time[i], y: output[i]} );
     }
-    const canvas = document.getElementById("c01");
+    const canvas = document.getElementById("c03");
     const plotta = new Plotta(canvas, {
         lineDatas: [
             {
@@ -75,7 +90,7 @@ function Run01() {
                 visible: true,
                 location: 'center',
                 color: '#666666',
-                text: 'Speed On/Off controller',
+                text: 'Speed P controller',
             },
             grid: {
                 visible: true,
@@ -122,33 +137,46 @@ function Run01() {
         }
     });
     // Evaluate results
+    // Real evaluation
     evalStart = 7.0;
     tolerance = 0.1;
     passes = true;
+    switches = 0;
+    dir = 1;
     for (let i = 0; i < time.length; i++) {
         if (time[i] >= evalStart) {
-            error = input[i] - output[i];
+            error = output[i] - input[i];
             if (Math.abs(error) > (input[i]*tolerance))
             {
                 passes = false;
             }
+            if (dir == 1 && output[i] > output[i-1]) {
+                switches++;
+                dir = 0;
+            } else if (dir == 0 && output[i] < output[i-1]) {
+                switches++;
+                dir = 1;
+            }
         }
+    }
+    if (switches > 5) {
+        passes = false;
     }
     feedback = document.getElementById("feedback");
     if (passes) {
-        button = document.getElementById("show02");
+        button = document.getElementById("show04");
         button.hidden = false;
         feedback.innerHTML = "Problem solved";
     }
     else
     {
         feedback.innerHTML =
-            "Not getting to the result fast enough, please try again.";
+            "You need to remain close to the target value and avoid high-frequency vibration.";
     }
 }
-function Switch02() {
-    current = document.getElementById("ex01");
-    next = document.getElementById("ex02");
+function Switch04() {
+    current = document.getElementById("ex03");
+    next = document.getElementById("ex04");
     current.hidden = true;
     next.hidden = false;
     feedback = document.getElementById("feedback");

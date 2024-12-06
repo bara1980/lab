@@ -3,8 +3,7 @@
   <script type="text/javascript" src="common.js"></script>
   <script type="text/javascript" src="prob01.js"></script>
   <script type="text/javascript" src="prob02.js"></script>
-  <script type="text/javascript">
-  </script>
+  <script type="text/javascript" src="prob03.js"></script>
   <head>
     <title>Control Engineering Lab</title>
   </head>
@@ -13,7 +12,7 @@
       <h2>Control Engineering Lab</h2>
     </div>
     <div id="content">
-      <div id="ex01">
+      <div id="ex01" hidden>
         <p>
           <canvas id="c01"
                   width="600px"
@@ -43,11 +42,28 @@
         <button id="show03" hidden onclick="Switch03()">Next Problem</button>
       </div>
       <div id="ex03" hidden>
-        <p>Congratulations!</p>
+        <p>
+          <canvas id="c03"
+                  width="600px"
+                  height="400px"
+                  style="width:600px; height:400px; border:1px solid #d3d3d3;"/>
+        </p>
+        <p>Design a proportional-only controller to follow the input speed.</p>
+        <p>Proportional constant:
+          <input id="03_p" type="number" value=0.1 />
+        </p>
+        <button id="solve03" onclick="Run03()">Simulate</button>
+        <button id="show04" hidden onclick="Switch04()">Next Problem</button>
+      </div>
+      <div id="ex04" hidden>
+        <p><b>Congratulations!</b><hr/>You have completed all the problems.</p>
       </div>
     </div>
     <div id="footer">
       <b><p id="feedback"></p></b>
     </div>
+    <script type="text/javascript">
+      document.getElementById("ex03").hidden = false;
+    </script>
   </body>
 </html>
