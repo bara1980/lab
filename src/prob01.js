@@ -2,17 +2,22 @@ function identity(x) {
     return x;
 }
 function DrawGraph() {
+    points = []
+    points.push( {x: 0, y: 1 });
+    points.push( {x: 1, y: 1.8 });
+    points.push( {x: 1.5, y: 1.9 });
+    points.push( {x: 2, y: 2.1 });
+    points.push( {x: 3.5, y: -0.4 });
     const canvas = document.getElementById("c01");
     const plotta = new Plotta(canvas, {
         lineDatas: [
             {
                 id: 'line1',
-                type: 'func',
+                type: 'data',
+                datas: points,
                 legend: 'first',
                 color: '#FF8888',
                 visible: true,
-                func: identity,
-                dotNum: 1000
             },
         ],
         graphConfig: {
