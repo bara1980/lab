@@ -39,3 +39,9 @@ function DrawGraph() {
     button = document.getElementById("show02");
     button.hidden = false;
 }
+function Switch02() {
+    current = document.getElementById("ex01");
+    next = document.getElementById("ex02");
+    current.hidden = true;
+    next.hidden = false;
+}
