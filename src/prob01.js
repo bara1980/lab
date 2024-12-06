@@ -4,12 +4,27 @@ function StepFunc(low, high, cutoff, t) {
     }
     return low;
 }
+function CalculateSpeed(
+    accelCoefficient,
+    dragCoefficient,
+    prevTime,
+    prevSpeed,
+    currentTime,
+    inputValue) {
+    accel = accelCoefficient * inputValue;
+    drag = dragCoefficient * prevSpeed;
+    speedChange = (accel - drag) * (currentTime - prevTime);
+    newSpeed = prevSpeed + speedChange;
+    return newSpeed;
+}
 function Run01() {
     ts = 0.0;
     te = 20.0;
     step = 0.01
+    accelCoefficient = 25;
+    dragCoefficient = 0.05;
+    startingSpeed = 0.0;
     time = [];
-    reference = [];
     input = [];
     output = [];
     // Read data from page
@@ -21,10 +36,25 @@ function Run01() {
         time.push(t);
         input.push(StepFunc(0, 60, 1.0, t));
     }
+    output.push(startingSpeed);
+    for (let i = 1; i < time.length; i++) {
+        output.push(
+            CalculateSpeed(
+                accelCoefficient,
+                dragCoefficient,
+                time[i-1],
+                output[i-1],
+                time[i],
+                off_value // TODO: Calculate
+            )
+        );
+    }
     // Plot results
+    reference = [];
+    result = [];
     for (let i = 0; i < time.length; i++) {
         reference.push( {x: time[i], y: input[i]} );
-        output.push( {x: time[i], y: 0.0} );
+        result.push( {x: time[i], y: output[i]} );
     }
     const canvas = document.getElementById("c01");
     const plotta = new Plotta(canvas, {
@@ -40,7 +70,7 @@ function Run01() {
             {
                 id: 'output',
                 type: 'data',
-                datas: output,
+                datas: result,
                 legend: 'speed',
                 color: '#FF88AA',
                 visible: true,
