@@ -162,12 +162,16 @@ function Run01() {
             }
         }
     }
+    feedback = document.getElementById("feedback");
     if (passes) {
-    button = document.getElementById("show02");
+        button = document.getElementById("show02");
         button.hidden = false;
+        feedback.innerHTML = "Problem solved";
     }
     else
     {
+        feedback.innerHTML =
+            "Not getting to the result fast enough, please try again.";
     }
 }
 function Switch02() {
@@ -175,4 +179,6 @@ function Switch02() {
     next = document.getElementById("ex02");
     current.hidden = true;
     next.hidden = false;
+    feedback = document.getElementById("feedback");
+    feedback.innerHTML = "";
 }
