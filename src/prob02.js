@@ -1,4 +1,4 @@
-function Run01() {
+function Run02() {
     ts = 0.0;
     te = 20.0;
     step = 0.01
@@ -146,7 +146,7 @@ function Run01() {
             "Not getting to the result fast enough, please try again.";
     }
 }
-function Switch02() {
+function Switch03() {
     current = document.getElementById("ex01");
     next = document.getElementById("ex02");
     current.hidden = true;
