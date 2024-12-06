@@ -20,7 +20,7 @@ function Run01() {
     command.push(offValue);
     output.push(startingSpeed);
     for (let i = 1; i < time.length; i++) {
-        command.push(OnOffControl(offValue, onValue, input[i-1] - output[i]));
+        command.push(OnOffControl(offValue, onValue, input[i-1] - output[i-1]));
         output.push(
             CalculateSpeed(
                 accelCoefficient,

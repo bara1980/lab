@@ -26,7 +26,7 @@ function Run02() {
             command[i-1],
             offValue, offOffset,
             onValue, onOffset,
-            input[i] - output[i])
+            input[i-1] - output[i-1]);
         command.push(controlValue);
         output.push(
             CalculateSpeed(

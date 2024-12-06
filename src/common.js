@@ -1,3 +1,13 @@
+function Switch01() {
+    next = document.getElementById("ex01");
+    next.hidden = false;
+    toHide = ["ex02", "ex03", "ex04"];
+    for (let i = 0; i < toHide.length; i++) {
+        document.getElementById(toHide[i]).hidden = true;
+    }
+    feedback = document.getElementById("feedback");
+    feedback.innerHTML = "";
+}
 function StepFunc(start, end, cutoff, t) {
     if (t >= cutoff) {
         return end;
