@@ -129,10 +129,12 @@ function Run02() {
         }
     });
     // Evaluate results
-    // TODO: Real evaluation
+    // Real evaluation
     evalStart = 7.0;
     tolerance = 0.1;
     passes = true;
+    switches = 0;
+    dir = 1;
     for (let i = 0; i < time.length; i++) {
         if (time[i] >= evalStart) {
             error = output[i] - input[i];
@@ -140,23 +142,33 @@ function Run02() {
             {
                 passes = false;
             }
+            if (dir == 1 && output[i] > output[i-1]) {
+                switches++;
+                dir = 0;
+            } else if (dir == 0 && output[i] < output[i-1]) {
+                switches++;
+                dir = 1;
+            }
         }
+    }
+    if (switches > 5) {
+        passes = false;
     }
     feedback = document.getElementById("feedback");
     if (passes) {
-        button = document.getElementById("show02");
+        button = document.getElementById("show03");
         button.hidden = false;
         feedback.innerHTML = "Problem solved";
     }
     else
     {
         feedback.innerHTML =
-            "Not getting to the result fast enough, please try again.";
+            "You need to remain close to the target value and avoid high-frequency vibration.";
     }
 }
 function Switch03() {
-    current = document.getElementById("ex01");
-    next = document.getElementById("ex02");
+    current = document.getElementById("ex02");
+    next = document.getElementById("ex03");
     current.hidden = true;
     next.hidden = false;
     feedback = document.getElementById("feedback");
