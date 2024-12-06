@@ -1,8 +1,8 @@
-function StepFunc(low, high, cutoff, t) {
-    if (t > cutoff) {
-        return high;
+function StepFunc(start, end, cutoff, t) {
+    if (t >= cutoff) {
+        return end;
     }
-    return low;
+    return start;
 }
 function CalculateSpeed(
     accelCoefficient,
@@ -17,27 +17,38 @@ function CalculateSpeed(
     newSpeed = prevSpeed + speedChange;
     return newSpeed;
 }
+function OnOffControl(
+    low,
+    high,
+    error) {
+    if (error >= 0) {
+        return low;
+    }
+    return high;
+}
 function Run01() {
     ts = 0.0;
     te = 20.0;
     step = 0.01
     accelCoefficient = 25;
-    dragCoefficient = 0.05;
+    dragCoefficient = 0.15;
     startingSpeed = 0.0;
     time = [];
     input = [];
     output = [];
+    command = [];
     // Read data from page
-    const off_value = document.getElementById("01_off").value;
-    const on_value = document.getElementById("01_on").value;
-    const cutoff_value = document.getElementById("01_cutoff").value;
+    const offValue = Number(document.getElementById("01_off").value);
+    const onValue = Number(document.getElementById("01_on").value);
     // Calculate results
     for (let t = ts; t <= te; t += step) {
         time.push(t);
         input.push(StepFunc(0, 60, 1.0, t));
     }
+    command.push(offValue);
     output.push(startingSpeed);
     for (let i = 1; i < time.length; i++) {
+        command.push(OnOffControl(offValue, onValue, output[i-1] - input[i]));
         output.push(
             CalculateSpeed(
                 accelCoefficient,
@@ -45,15 +56,17 @@ function Run01() {
                 time[i-1],
                 output[i-1],
                 time[i],
-                off_value // TODO: Calculate
+                command[i]
             )
         );
     }
     // Plot results
     reference = [];
     result = [];
+    control = [];
     for (let i = 0; i < time.length; i++) {
         reference.push( {x: time[i], y: input[i]} );
+        control.push( {x: time[i], y: command[i]*100} );
         result.push( {x: time[i], y: output[i]} );
     }
     const canvas = document.getElementById("c01");
@@ -65,6 +78,14 @@ function Run01() {
                 datas: reference,
                 legend: 'request',
                 color: '#4488FF',
+                visible: true,
+            },
+            {
+                id: 'control (%)',
+                type: 'data',
+                datas: control,
+                legend: 'control',
+                color: '#22DD44',
                 visible: true,
             },
             {
