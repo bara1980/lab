@@ -10,8 +10,10 @@ function Run02() {
     output = [];
     command = [];
     // Read data from page
-    const offValue = Number(document.getElementById("01_off").value);
-    const onValue = Number(document.getElementById("01_on").value);
+    const offValue = Number(document.getElementById("02_off").value);
+    const onValue = Number(document.getElementById("02_on").value);
+    const offOffset = Number(document.getElementById("02_offt").value);
+    const onOffset = Number(document.getElementById("02_ont").value);
     // Calculate results
     for (let t = ts; t <= te; t += step) {
         time.push(t);
@@ -20,7 +22,12 @@ function Run02() {
     command.push(offValue);
     output.push(startingSpeed);
     for (let i = 1; i < time.length; i++) {
-        command.push(OnOffControl(offValue, onValue, output[i-1] - input[i]));
+        controlValue = OnOffWithHysteresisControl(
+            command[i-1],
+            offValue, offOffset,
+            onValue, onOffset,
+            output[i-1] - input[i])
+        command.push(controlValue);
         output.push(
             CalculateSpeed(
                 accelCoefficient,
@@ -41,7 +48,7 @@ function Run02() {
         control.push( {x: time[i], y: command[i]*100} );
         result.push( {x: time[i], y: output[i]} );
     }
-    const canvas = document.getElementById("c01");
+    const canvas = document.getElementById("c02");
     const plotta = new Plotta(canvas, {
         lineDatas: [
             {
@@ -122,6 +129,7 @@ function Run02() {
         }
     });
     // Evaluate results
+    // TODO: Real evaluation
     evalStart = 7.0;
     tolerance = 0.1;
     passes = true;

@@ -26,3 +26,18 @@ function OnOffControl(
     }
     return high;
 }
+function OnOffWithHysteresisControl(
+    previousOutput,
+    offValue,
+    offOffset,
+    onValue,
+    onOffset,
+    error) {
+    if (error > offOffset) {
+        return offValue;
+    }
+    if (error < -onOffset) {
+        return onValue;
+    }
+    return previousOutput;
+}

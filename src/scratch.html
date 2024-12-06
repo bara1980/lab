@@ -13,27 +13,28 @@
       <h2>Control Engineering Lab</h2>
     </div>
     <div id="content">
-      <div id="ex01">
+      <div id="ex01" hidden>
         <p>
           <canvas id="c01"
                   width="600px"
                   height="400px"
                   style="width:600px; height:400px; border:1px solid #d3d3d3;"/>
         </p>
-        <p>Design an on/off controller that will set an  speed to 60 mph</p>
+        <p>Design an on/off controller that will set the speed to 60 mph</p>
         <p>Off output: <input id="01_off" type="number" value=0.1 /> </p>
         <p>On output: <input id="01_on" type="number" value=0.2 /> </p>
         <button id="solve01" onclick="Run01()">Simulate</button>
         <button id="show02" hidden onclick="Switch02()">Next Problem</button>
       </div>
-      <div id="ex02" hidden>
+      <div id="ex02">
         <p>
           <canvas id="c02"
                   width="600px"
                   height="400px"
                   style="width:600px; height:400px; border:1px solid #d3d3d3;"/>
         </p>
-        <p>Design an on/off controller that will set an  speed to 60 mph</p>
+        <p>Design an on/off controller with hysteresis that will set the speed
+          to 60 mph and avoids high vibration.</p>
         <p>Off output: <input id="02_off" type="number" value=0.1 /> </p>
         <p>Off threshold: <input id="02_offt" type="number" value=20 /> </p>
         <p>On output: <input id="02_on" type="number" value=0.35 /> </p>
