@@ -33,6 +33,7 @@ function Run01() {
         );
     }
     // Plot results
+    delay(3);
     reference = [];
     result = [];
     control = [];

@@ -8,6 +8,10 @@ function Switch01() {
     feedback = document.getElementById("feedback");
     feedback.innerHTML = "";
 }
+function delay(seconds) {
+    start = new Date().getTime();
+    while (new Date().getTime() - start < 1000*seconds) {}
+}
 function StepFunc(start, end, cutoff, t) {
     if (t >= cutoff) {
         return end;

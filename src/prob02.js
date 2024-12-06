@@ -129,7 +129,7 @@ function Run02() {
         }
     });
     // Evaluate results
-    // Real evaluation
+    delay(3);
     evalStart = 7.0;
     tolerance = 0.1;
     passes = true;

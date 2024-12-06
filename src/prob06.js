@@ -145,7 +145,7 @@ function Run06() {
         }
     });
     // Evaluate results
-    // Real evaluation
+    delay(3);
     evalStart = 7.0;
     totalError = 0;
     maxTotalError = 30;
