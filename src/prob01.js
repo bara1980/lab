@@ -150,8 +150,25 @@ function Run01() {
         }
     });
     // Evaluate results
+    evalStart = 7.0;
+    tolerance = 0.1;
+    passes = true;
+    for (let i = 0; i < time.length; i++) {
+        if (time[i] >= evalStart) {
+            error = output[i] - input[i];
+            if (Math.abs(error) > (input[i]*tolerance))
+            {
+                passes = false;
+            }
+        }
+    }
+    if (passes) {
     button = document.getElementById("show02");
-    button.hidden = false;
+        button.hidden = false;
+    }
+    else
+    {
+    }
 }
 function Switch02() {
     current = document.getElementById("ex01");
